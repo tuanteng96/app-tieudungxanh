@@ -1,0 +1,44 @@
+.input-customs {
+    box-shadow: 0px 20px 25px 0px rgb(126 55 216 / 5%) !important;
+    -webkit-box-shadow: 0px 0px 25px 0px rgb(126 55 216 / 5%) !important;
+    border: 1px solid #ececec !important;
+    &.solid-invalid {
+        border: 1px solid #F64E60 !important;
+    }
+    &:focus {
+        border: 1px solid var(--ezs-color) !important;
+    }
+}
+
+.form-group {
+    label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #3f4254;
+        margin-bottom: 2px;
+        line-height: 22px;
+    }
+}
+
+input[type="text"].form-control {
+    width: 100%;
+    border: 1px solid #e4e6ef ;
+    padding: 14px 15px;
+    border-radius: 5px;
+    font-size: 15px;
+    transition: all .3s ease-in-out;
+    &:focus {
+        border: 1px solid var(--ezs-color)
+    }
+}
+
+.button-color {
+    width: 100%;
+    height: 48px;
+    background: var(--ezs-color);
+    border: 0;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+}

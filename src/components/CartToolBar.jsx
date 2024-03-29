@@ -1,0 +1,76 @@
+import React from "react";
+import { Link } from "framework7-react";
+import { getUser } from "../constants/user";
+import ShopDataService from "../service/shop.service";
+import { GrCart } from "react-icons/gr";
+
+export default class CartToolBar extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      countOrder: 0,
+    };
+  }
+  componentDidMount() {
+    this.getOrder();
+
+    window.ReloadOrder = this.getOrder
+  }
+  getOrder = (callback) => {
+    const infoUser = getUser();
+    if (!infoUser || infoUser.acc_type !== "M") {
+      return false;
+    }
+
+    const data = {
+      order: {
+        ID: 0,
+        SenderID: infoUser.ID,
+        VCode: null,
+      },
+      addProps: "ProdTitle",
+    };
+    ShopDataService.getUpdateOrder(data)
+      .then((response) => {
+        
+        const { items } = response.data.data;
+        if (items && items.length > 0) {
+          this.setState({
+            countOrder: items.length,
+          });
+        }
+        callback && callback()
+      })
+      .catch((er) => console.log(er));
+  };
+
+  handleCart = () => {
+    const _this = this;
+    const infoUser = getUser();
+    if (!infoUser) {
+      _this.$f7.dialog.confirm(
+        "Bạn vui lòng đăng nhập tài khoản để sử dụng chức năng ngày.",
+        () => {
+          _this.$f7.views.main.router.navigate("/login/");
+        }
+      );
+    } else {
+      _this.$f7.views.main.router.navigate("/pay/");
+    }
+  };
+
+  render() {
+    const { countOrder } = this.state;
+    if (countOrder < 1) return "";
+    return (
+      <Link
+        className={this.props.className || '' + ' icon-cart-toolbar'}
+        noLinkClass
+        onClick={() => this.handleCart()}
+      >
+        <GrCart />
+        {countOrder > 0 ? <span className="count">{countOrder}</span> : ""}
+      </Link>
+    );
+  }
+}
