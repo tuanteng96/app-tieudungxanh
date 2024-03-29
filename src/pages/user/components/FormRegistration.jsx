@@ -34,7 +34,7 @@ const regSchema = Yup.object().shape({
     .min(4, "Họ tên phải có ít nhất 4 kí tự.")
     .required("Vui lòng nhập họ tên."),
   password: Yup.string()
-    .min(6, "Mật khẩu phải có ít nhất 6 kí tự.")
+    .min(4, "Mật khẩu phải có ít nhất 4 kí tự.")
     .matches(
       /^(?=.*[a-z])(?=.*[0-9])(?=.{6,})/,
       "Mật khẩu phải gồm đầy đủ số & chữ."
